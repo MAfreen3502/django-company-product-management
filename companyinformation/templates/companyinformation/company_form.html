@@ -1,0 +1,21 @@
+ {% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <form enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+
+        {% if form.instance.pk %}
+            <h1>Update Company Details</h1>
+            {{ form.as_p }}
+            <input type="submit" value="Update" class="btn btn-primary">
+        {% else %}
+            <h1>Add New Company</h1>
+            {{ form.as_p }}
+            <input type="submit" value="ADD" class="btn btn-success">
+        {% endif %}
+    </form>
+</div>
+
+{% endblock %}

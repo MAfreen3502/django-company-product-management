@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product List</title>
+</head>
+<body>
+
+    <h1>List of Products</h1>
+
+    {% for i in products %}
+        <div>
+            <h3>{{ i.productName }}</h3>
+            <p>Color: {{ i.color }}</p>
+            <p>Seat Capacity: {{ i.seat_capacity }}</p>
+            <p>Fuel Type: {{ i.fuel_type }}</p>
+            <p>Engine CC: {{ i.cc }}</p>
+            <p>Mileage: {{ i.miliege }}</p>
+            <p>Price: ₹{{ i.price }}</p>
+            <p>Company: {{ i.company.companyName }}</p>
+        </div>
+        
+        <hr>
+    {% empty %}
+        <p>No products found.</p>
+    {% endfor %}
+
+    <a href="{% url 'company_list' %}">Back to Companies</a>
+
+</body>
+</html>

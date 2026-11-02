@@ -1,0 +1,103 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <!-- Respective Company Details -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row align-items-center">
+
+                <!-- Company Logo -->
+                <div class="col-md-3 text-center">
+                    {% if companyinfo.logo %}
+                        <img src="{{ companyinfo.logo.url }}"
+                             class="img-fluid"
+                             alt="{{ companyinfo.companyName }}"
+                             style="width: 150px; height: 150px; object-fit: contain;">
+                    {% endif %}
+                </div>
+
+                <!-- Company Information -->
+                <div class="col-md-9">
+                    <h2>{{ companyinfo.companyName }}</h2>
+                    <p><strong>CEO:</strong> {{ companyinfo.Ceo }}</p>
+                    <p><strong>Established Year:</strong> {{ companyinfo.est_year }}</p>
+                    <p><strong>Origin:</strong> {{ companyinfo.origin }}</p>
+                </div>
+                <a href="{% url 'edit' pk=companyinfo.id %}" class="btn btn-secondary">Update</a>
+                <br><br>
+                <a href="{% url 'delete' pk=companyinfo.id %}" class="btn btn-secondary">Delete</a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <h2 class="mb-4">Products</h2>
+
+    <div class="row">
+
+        {% for i in companyinfo.companies.all %}
+
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 text-center p-3">
+
+                    <!-- Product Image -->
+                    {% if i.prod_img %}
+                        <img src="{{ i.prod_img.url }}"
+                             class="card-img-top mx-auto"
+                             alt="{{ i.productName }}"
+                             style="width: 200px; height: 150px; object-fit: contain;">
+                    {% endif %}
+
+                    <!-- Product Details -->
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.productName }}</h5>
+
+                        <p class="card-text">
+                            <strong>Color:</strong> {{ i.color }}
+                        </p>
+
+                        <p class="card-text">
+                            <strong>Seat Capacity:</strong> {{ i.seat_capacity }}
+                        </p>
+
+                        <p class="card-text">
+                            <strong>Fuel Type:</strong> {{ i.fuel_type }}
+                        </p>
+
+                        <p class="card-text">
+                            <strong>Engine CC:</strong> {{ i.cc }}
+                        </p>
+
+                        <p class="card-text">
+                            <strong>Mileage:</strong> {{ i.miliege }}
+                        </p>
+
+                        <p class="card-text">
+                            <strong>Price:</strong> ₹{{ i.price }}
+                        </p>
+                       <a href="{% url 'emi_calci' pk=i.pk %}" class="btn btn-primary">EMI OPTIONS
+                    </a>
+                    </div>
+
+                </div>
+            </div>
+
+        {% empty %}
+            <p>No products available for this company.</p>
+        {% endfor %}
+
+    </div>
+
+    <!-- Back Button -->
+    <a href="{% url 'company_list' %}" class="btn btn-secondary mb-4">
+        Back to Company List
+    </a>
+
+</div>
+
+{% endblock %}

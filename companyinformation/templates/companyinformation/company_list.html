@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">All Companies</h2>
+
+    <div class="row">
+        {% for company in companies %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 text-center p-3">
+
+                <img src="{{ company.logo.url }}"
+                     class="card-img-top mx-auto"
+                     alt="{{ company.company_name }}"
+                     style="width: 100px; height: 100px; object-fit: contain;">
+
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'company_detail' company.id %}">
+                            {{ company.companyName }}
+                        </a>
+                    </h5>
+                </div>
+
+            </div>
+        </div>
+        {% empty %}
+        <p>No companies available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
